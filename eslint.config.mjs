@@ -12,6 +12,10 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Vendored Three.js Basis KTX2 WASM loader:
+    "public/basis/**",
+    // Isolated reference-lab experiments:
+    "reference-lab/**",
   ]),
 ]);
 

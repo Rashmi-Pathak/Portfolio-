@@ -1,26 +1,139 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-midnight: #171a1c;
+  --color-graphite: #25292b;
+  --color-dusty-mauve: #a58d91;
+  --color-warm-mauve: #b69b96;
+  --color-walnut: #694832;
+  --color-dark-walnut: #453125;
+  --color-forest-green: #3f6049;
+  --color-muted-sage: #91a58d;
+  --color-warm-cream: #f0e7d9;
+  --color-amber: #d6a15b;
+  --color-soft-gold: #c5a66d;
+  --color-off-white: #f5f1e9;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-midnight: var(--color-midnight);
+  --color-graphite: var(--color-graphite);
+  --color-dusty-mauve: var(--color-dusty-mauve);
+  --color-warm-mauve: var(--color-warm-mauve);
+  --color-walnut: var(--color-walnut);
+  --color-dark-walnut: var(--color-dark-walnut);
+  --color-forest-green: var(--color-forest-green);
+  --color-muted-sage: var(--color-muted-sage);
+  --color-warm-cream: var(--color-warm-cream);
+  --color-amber: var(--color-amber);
+  --color-soft-gold: var(--color-soft-gold);
+  --color-off-white: var(--color-off-white);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, monospace;
+  --font-serif: var(--font-cormorant), Georgia, serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+html {
+  background-color: var(--color-midnight);
+  color: var(--color-off-white);
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+/* Visually hidden utility that stays focus-visible for skip links */
+.visually-hidden:where(:not(:focus-within, :active)) {
+  position: absolute !important;
+  clip-path: inset(50%) !important;
+  overflow: hidden !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  white-space: nowrap !important;
+}
+
+/* Accessible high-contrast focus indicator */
+:where(a:any-link, button, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-amber);
+  outline-offset: 3px;
+}
+
+/* Subtle terminal grid background for Scene 01 */
+.terminal-grid {
+  background-image:
+    linear-gradient(to right, rgba(145, 165, 141, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(145, 165, 141, 0.06) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+
+@keyframes cursor-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes ambient-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0.25;
+  }
+  50% {
+    transform: translate3d(8px, -16px, 0);
+    opacity: 0.7;
+  }
+}
+
+@keyframes scroll-line-pulse {
+  0% {
+    transform: scaleY(0.35);
+    opacity: 0.45;
+  }
+  50% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleY(0.35);
+    opacity: 0.45;
+  }
+}
+
+.animate-cursor-blink {
+  @media (prefers-reduced-motion: no-preference) {
+    animation: cursor-blink 1s steps(1, end) infinite;
+  }
+}
+
+.animate-ambient-float {
+  @media (prefers-reduced-motion: no-preference) {
+    animation: ambient-float var(--float-duration, 7s) ease-in-out infinite;
+    animation-delay: var(--float-delay, 0s);
+  }
+}
+
+.animate-scroll-line {
+  transform-origin: top center;
+  @media (prefers-reduced-motion: no-preference) {
+    animation: scroll-line-pulse 2.2s ease-in-out infinite;
+  }
 }
